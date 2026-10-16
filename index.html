@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>产品展示 | 你的名字</title>
+<style>
+:root {
+  --bg: #f7f7f8;
+  --card: #ffffff;
+  --text: #222;
+  --muted: #666;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --border: #e5e7eb;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+header {
+  padding: 48px 20px 32px;
+  text-align: center;
+}
+header h1 { margin: 0 0 8px; font-size: 2rem; }
+header p { margin: 0; color: var(--muted); }
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px 60px;
+}
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s;
+}
+.card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  background: #eee;
+  display: block;
+}
+.card-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.card h2 {
+  font-size: 1.1rem;
+  margin: 0 0 8px;
+}
+.card p {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 0.95rem;
+  flex: 1;
+}
+.price {
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.btn {
+  display: inline-block;
+  text-align: center;
+  padding: 10px 16px;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.btn:hover { background: var(--accent-hover); }
+.contact {
+  margin-top: 60px;
+  padding: 32px 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  text-align: center;
+}
+.contact h2 { margin-top: 0; }
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 16px;
+}
+.contact-links a {
+  display: inline-block;
+  padding: 10px 18px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text);
+  background: #fff;
+  transition: background 0.2s;
+}
+.contact-links a:hover { background: #f0f0f0; }
+footer {
+  text-align: center;
+  padding: 24px 20px 48px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>产品展示</h1>
+  <p>看中哪个直接联系我购买</p>
+</header>
+
+<div class="container">
+  <div class="products">
+
+    <!-- 产品卡片：复制这一段修改 -->
+    <div class="card">
+      <img src="images/product1.jpg" alt="产品一">
+      <div class="card-body">
+        <h2>产品一</h2>
+        <p>简单描述，比如材质、尺寸、颜色、用途。</p>
+        <div class="price">RM 99</div>
+        <a class="btn" href="https://wa.me/60123456789?text=我想买产品一" target="_blank" rel="noopener">WhatsApp 购买</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="images/product2.jpg" alt="产品二">
+      <div class="card-body">
+        <h2>产品二</h2>
+        <p>简单描述，比如材质、尺寸、颜色、用途。</p>
+        <div class="price">RM 129</div>
+        <a class="btn" href="https://wa.me/60123456789?text=我想买产品二" target="_blank" rel="noopener">WhatsApp 购买</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="images/product3.jpg" alt="产品三">
+      <div class="card-body">
+        <h2>产品三</h2>
+        <p>简单描述，比如材质、尺寸、颜色、用途。</p>
+        <div class="price">RM 59</div>
+        <a class="btn" href="https://wa.me/60123456789?text=我想买产品三" target="_blank" rel="noopener">WhatsApp 购买</a>
+      </div>
+    </div>
+    <!-- 产品卡片结束 -->
+
+  </div>
+
+  <div class="contact">
+    <h2>联系购买</h2>
+    <p>看中产品后，直接通过以下方式联系我，确认库存、付款和发货。</p>
+    <div class="contact-links">
+      <a href="https://wa.me/60123456789?text=你好，我想询问产品" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="https://t.me/你的用户名" target="_blank" rel="noopener">Telegram</a>
+      <a href="mailto:you@example.com?subject=产品询问">Email</a>
+    </div>
+    <!-- 如果要放微信二维码，把下面这行取消注释，并上传图片 -->
+    <!-- <img src="images/wechat-qr.png" alt="微信二维码" style="width:160px; margin-top:20px; border-radius:8px;"> -->
+  </div>
+</div>
+
+<footer>
+  © 2026 你的名字 · 产品展示页
+</footer>
+
+</body>
+</html>
