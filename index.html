@@ -37,16 +37,32 @@
   .container { max-width: 1100px; margin: 0 auto; padding: 0 20px 80px; }
 
   /* 分类按钮样式 */
-  .tabs {
-    display: flex; justify-content: center; gap: 12px; margin-bottom: 40px;
-    overflow-x: auto; padding-bottom: 10px;
-  }
-  .tabs::-webkit-scrollbar { display: none; } /* 隐藏滚动条 */
-  .tab-btn {
-    padding: 10px 24px; border-radius: 50px; border: 2px solid var(--border);
-    background: var(--card); color: var(--text); font-size: 1rem; font-weight: 600;
-    cursor: pointer; transition: all 0.3s ease; white-space: nowrap;
-  }
+  /* 分类按钮样式（修复滑动bug） */
+.tabs {
+  display: flex; 
+  justify-content: flex-start; /* 关键修复：改为靠左排列 */
+  gap: 12px; 
+  margin-bottom: 40px;
+  overflow-x: auto; 
+  padding-bottom: 10px;
+  padding-left: 20px; /* 给左边留点空隙 */
+  padding-right: 20px; /* 给右边留点空隙 */
+  -webkit-overflow-scrolling: touch; /* 关键修复：让苹果手机滑动更顺滑 */
+}
+.tabs::-webkit-scrollbar { display: none; } /* 隐藏滚动条 */
+.tab-btn {
+  padding: 10px 24px; 
+  border-radius: 50px; 
+  border: 2px solid var(--border);
+  background: var(--card); 
+  color: var(--text); 
+  font-size: 1rem; 
+  font-weight: 600;
+  cursor: pointer; 
+  transition: all 0.3s ease; 
+  white-space: nowrap;
+  flex-shrink: 0; /* 关键修复：防止按钮被强行挤压缩小 */
+}
   .tab-btn.active, .tab-btn:hover {
     background: var(--accent); color: #fff; border-color: var(--accent);
     box-shadow: 0 4px 12px rgba(255, 158, 158, 0.3);
