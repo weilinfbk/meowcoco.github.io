@@ -3,191 +3,87 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meowcoco | 你的名字</title>
+<title>Meowcoco | 产品展示</title>
 <style>
+  /* 弹窗放大功能 */
   .modal {
-    display: none; 
-    position: fixed; 
-    z-index: 999; 
-    top: 0; left: 0; width: 100%; height: 100%; 
-    background: rgba(0,0,0,0.85); 
-    justify-content: center; align-items: center;
+    display: none; position: fixed; z-index: 999; top: 0; left: 0; width: 100%; height: 100%; 
+    background: rgba(0,0,0,0.85); justify-content: center; align-items: center;
   }
-  .modal img { max-width: 95%; max-height: 90%; border-radius: 8px; }
+  .modal img { max-width: 95%; max-height: 90%; border-radius: 12px; }
   .modal.active { display: flex; cursor: zoom-out; }
-</style>
-<style>
-:root {
-  --bg: #FFF9F0;        /* 温暖奶油背景 */
-  --card: #FFFFFF;      /* 纯白卡片 */
-  --text: #4A3B32;      /* 深咖啡色文字 */
-  --muted: #8E7D72;     /* 浅灰褐色描述文字 */
-  --accent: #FF9E9E;    /* 猫爪粉，用于按钮 */
-  --accent-hover: #F88B8B; /* 悬停时加深一点的粉色 */
-  --border: #F0E6D6;    /* 柔和边框 */
-  --shadow: 0 8px 24px rgba(255, 158, 158, 0.15); /* 粉色柔光阴影 */
-}
 
-* { box-sizing: border-box; }
+  /* 可爱猫咖风外观 */
+  :root {
+    --bg: #FFF9F0;
+    --card: #FFFFFF;
+    --text: #4A3B32;
+    --muted: #8E7D72;
+    --accent: #FF9E9E;
+    --accent-hover: #F88B8B;
+    --border: #F0E6D6;
+    --shadow: 0 8px 24px rgba(255, 158, 158, 0.15);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.6;
+  }
+  header { padding: 60px 20px 40px; text-align: center; }
+  header h1 { margin: 0 0 12px; font-size: 2.2rem; color: var(--text); letter-spacing: 1px; }
+  header h1::after { content: " 🐾"; font-size: 1.8rem; }
+  header p { margin: 0; color: var(--muted); font-size: 1.1rem; }
+  
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 20px 80px; }
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
-}
+  /* 分类按钮样式 */
+  .tabs {
+    display: flex; justify-content: center; gap: 12px; margin-bottom: 40px;
+    overflow-x: auto; padding-bottom: 10px;
+  }
+  .tabs::-webkit-scrollbar { display: none; } /* 隐藏滚动条 */
+  .tab-btn {
+    padding: 10px 24px; border-radius: 50px; border: 2px solid var(--border);
+    background: var(--card); color: var(--text); font-size: 1rem; font-weight: 600;
+    cursor: pointer; transition: all 0.3s ease; white-space: nowrap;
+  }
+  .tab-btn.active, .tab-btn:hover {
+    background: var(--accent); color: #fff; border-color: var(--accent);
+    box-shadow: 0 4px 12px rgba(255, 158, 158, 0.3);
+  }
 
-header {
-  padding: 60px 20px 40px;
-  text-align: center;
-}
+  .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; }
+  .card {
+    background: var(--card); border: 2px solid var(--border); border-radius: 24px;
+    overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: var(--shadow); animation: fadeIn 0.4s ease;
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .card:hover { transform: translateY(-6px); box-shadow: 0 16px 32px rgba(255, 158, 158, 0.25); }
+  .card img { width: 100%; height: 220px; object-fit: cover; background: #FDF6EE; display: block; cursor: pointer; }
+  .card-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+  .card h2 { font-size: 1.2rem; margin: 0 0 8px; }
+  .card p { margin: 0 0 16px; color: var(--muted); font-size: 0.95rem; flex: 1; }
+  .price { font-weight: 800; font-size: 1.15rem; color: var(--accent); margin-bottom: 16px; }
+  .btn {
+    display: inline-block; text-align: center; padding: 12px 20px; background: var(--accent); color: #fff;
+    text-decoration: none; border-radius: 50px; font-weight: 700; transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(255, 158, 158, 0.3);
+  }
+  .btn:hover { background: var(--accent-hover); transform: scale(1.02); }
 
-header h1 {
-  margin: 0 0 12px;
-  font-size: 2.2rem;
-  color: var(--text);
-  letter-spacing: 1px;
-}
-
-header h1::after {
-  content: " 🐾";
-  font-size: 1.8rem;
-}
-
-header p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 1.1rem;
-}
-
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 20px 80px;
-}
-
-.products {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 24px;
-}
-
-.card {
-  background: var(--card);
-  border: 2px solid var(--border);
-  border-radius: 24px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: var(--shadow);
-}
-
-.card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 16px 32px rgba(255, 158, 158, 0.25);
-}
-
-.card img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  background: #FDF6EE;
-  display: block;
-}
-
-.card-body {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.card h2 {
-  font-size: 1.2rem;
-  margin: 0 0 8px;
-}
-
-.card p {
-  margin: 0 0 16px;
-  color: var(--muted);
-  font-size: 0.95rem;
-  flex: 1;
-}
-
-.price {
-  font-weight: 800;
-  font-size: 1.15rem;
-  color: var(--accent);
-  margin-bottom: 16px;
-}
-
-.btn {
-  display: inline-block;
-  text-align: center;
-  padding: 12px 20px;
-  background: var(--accent);
-  color: #fff;
-  text-decoration: none;
-  border-radius: 50px;
-  font-weight: 700;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(255, 158, 158, 0.3);
-}
-
-.btn:hover {
-  background: var(--accent-hover);
-  transform: scale(1.02);
-}
-
-.contact {
-  margin-top: 60px;
-  padding: 40px 20px;
-  background: var(--card);
-  border: 2px solid var(--border);
-  border-radius: 24px;
-  text-align: center;
-  box-shadow: var(--shadow);
-}
-
-.contact h2 {
-  margin-top: 0;
-  color: var(--text);
-}
-
-.contact-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.contact-links a {
-  display: inline-block;
-  padding: 12px 24px;
-  border: 2px solid var(--border);
-  border-radius: 50px;
-  text-decoration: none;
-  color: var(--text);
-  background: #FFFDF9;
-  font-weight: 600;
-  transition: all 0.2s ease;
-}
-
-.contact-links a:hover {
-  background: var(--bg);
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-footer {
-  text-align: center;
-  padding: 24px 20px 60px;
-  color: var(--muted);
-  font-size: 0.9rem;
-}
+  .contact {
+    margin-top: 60px; padding: 40px 20px; background: var(--card);
+    border: 2px solid var(--border); border-radius: 24px; text-align: center; box-shadow: var(--shadow);
+  }
+  .contact h2 { margin-top: 0; color: var(--text); }
+  .contact-links { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 20px; }
+  .contact-links a {
+    display: inline-block; padding: 12px 24px; border: 2px solid var(--border); border-radius: 50px;
+    text-decoration: none; color: var(--text); background: #FFFDF9; font-weight: 600; transition: all 0.2s ease;
+  }
+  .contact-links a:hover { background: var(--bg); border-color: var(--accent); color: var(--accent); }
+  footer { text-align: center; padding: 24px 20px 60px; color: var(--muted); font-size: 0.9rem; }
 </style>
 </head>
 <body>
@@ -198,57 +94,61 @@ footer {
 </header>
 
 <div class="container">
+  
+  <!-- 顶部：分类切换按钮 -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="filterProducts('all', this)">全部商品</button>
+    <button class="tab-btn" onclick="filterProducts('drink', this)">☕ 饮品区</button>
+    <button class="tab-btn" onclick="filterProducts('food', this)">🍰 甜点区</button>
+    <button class="tab-btn" onclick="filterProducts('merch', this)">🎀 周边</button>
+  </div>
+
+  <!-- 商品列表 -->
   <div class="products">
-    
-  <!-- 分类一：甜点区 -->
-  <div style="grid-column: 1 / -1;">
-    <h2 style="color: var(--accent); margin: 20px 0 10px; border-bottom: 2px dashed var(--border); padding-bottom: 10px;">🍰 甜点系列</h2>
-  </div>
 
-  <!-- 这里放甜点的卡片（复制之前的card代码） -->
-  <div class="card"> ... </div>
-
-  <!-- 分类二：饮品区 -->
-  <div style="grid-column: 1 / -1;">
-    <h2 style="color: var(--accent); margin: 40px 0 10px; border-bottom: 2px dashed var(--border); padding-bottom: 10px;">☕ 咖啡饮品</h2>
-  </div>
-
-  <!-- 这里放饮品的卡片 -->
-  <div class="card"> ... </div>
-
-    </div>
-
-    <!-- 产品卡片：复制这一段修改 -->
-    <div class="card">
+    <!-- 商品一（属于饮品区） data-category="drink" -->
+    <div class="card" data-category="drink">
       <img src="images/FB_IMG_1792127392706.jpg" alt="产品一">
       <div class="card-body">
-        <h2>产品一</h2>
-        <p>简单描述，比如材质、尺寸、颜色、用途。</p>
-        <div class="price">RM 99</div>
-        <a class="btn" href="https://wa.me/60123456789?text=我想买产品一" target="_blank" rel="noopener">WhatsApp 购买</a>
+        <h2>草莓拿铁</h2>
+        <p>香浓牛奶与新鲜草莓果酱的完美结合。</p>
+        <div class="price">RM 15</div>
+        <a class="btn" href="https://wa.me/60123456789?text=我想买草莓拿铁" target="_blank" rel="noopener">WhatsApp 购买</a>
       </div>
     </div>
 
-    <div class="card">
-      <img src="images/product2.jpg" alt="产品二">
+    <!-- 商品二（属于甜点区） data-category="food" -->
+    <div class="card" data-category="food">
+      <img src="images/FB_IMG_1792127392706.jpg" alt="产品二">
       <div class="card-body">
-        <h2>产品二</h2>
-        <p>简单描述，比如材质、尺寸、颜色、用途。</p>
-        <div class="price">RM 129</div>
-        <a class="btn" href="https://wa.me/60123456789?text=我想买产品二" target="_blank" rel="noopener">WhatsApp 购买</a>
+        <h2>猫爪蛋糕</h2>
+        <p>软绵绵的戚风蛋糕，配上特制奶油。</p>
+        <div class="price">RM 25</div>
+        <a class="btn" href="https://wa.me/60123456789?text=我想买猫爪蛋糕" target="_blank" rel="noopener">WhatsApp 购买</a>
       </div>
     </div>
 
-    <div class="card">
-      <img src="images/product3.jpg" alt="产品三">
+    <!-- 商品三（属于周边区） data-category="merch" -->
+    <div class="card" data-category="merch">
+      <img src="images/FB_IMG_1792127392706.jpg" alt="产品三">
       <div class="card-body">
-        <h2>产品三</h2>
-        <p>简单描述，比如材质、尺寸、颜色、用途。</p>
-        <div class="price">RM 59</div>
-        <a class="btn" href="https://wa.me/60123456789?text=我想买产品三" target="_blank" rel="noopener">WhatsApp 购买</a>
+        <h2>猫猫帆布袋</h2>
+        <p>环保耐用，出门买菜逛街必备。</p>
+        <div class="price">RM 35</div>
+        <a class="btn" href="https://wa.me/60123456789?text=我想买猫猫帆布袋" target="_blank" rel="noopener">WhatsApp 购买</a>
       </div>
     </div>
-    <!-- 产品卡片结束 -->
+
+    <!-- 商品四（属于饮品区） data-category="drink" -->
+    <div class="card" data-category="drink">
+      <img src="images/FB_IMG_1792127392706.jpg" alt="产品四">
+      <div class="card-body">
+        <h2>焦糖玛奇朵</h2>
+        <p>经典浓缩咖啡，淋上香甜焦糖。</p>
+        <div class="price">RM 18</div>
+        <a class="btn" href="https://wa.me/60123456789?text=我想买焦糖玛奇朵" target="_blank" rel="noopener">WhatsApp 购买</a>
+      </div>
+    </div>
 
   </div>
 
@@ -260,34 +160,46 @@ footer {
       <a href="https://t.me/你的用户名" target="_blank" rel="noopener">Telegram</a>
       <a href="mailto:you@example.com?subject=产品询问">Email</a>
     </div>
-    <!-- 如果要放微信二维码，把下面这行取消注释，并上传图片 -->
-    <!-- <img src="images/wechat-qr.png" alt="微信二维码" style="width:160px; margin-top:20px; border-radius:8px;"> -->
   </div>
 </div>
 
 <footer>
   © 2026 Meowcoco · 产品展示页
 </footer>
+
+<!-- 弹窗容器和JS -->
 <div class="modal" id="imageModal">
   <img id="modalImg" src="" alt="大图">
 </div>
+
 <script>
+  // 图片点击放大功能
   const modal = document.getElementById('imageModal');
   const modalImg = document.getElementById('modalImg');
-  
-  // 给所有产品图片绑定点击事件
   document.querySelectorAll('.card img').forEach(img => {
-    img.style.cursor = 'pointer'; // 鼠标移上去变成手型
     img.addEventListener('click', function() {
       modalImg.src = this.src;
       modal.classList.add('active');
     });
   });
-  
-  // 点击背景关闭弹窗
-  modal.addEventListener('click', function() {
-    this.classList.remove('active');
-  });
+  modal.addEventListener('click', function() { this.classList.remove('active'); });
+
+  // 分类切换过滤功能
+  function filterProducts(category, btn) {
+    // 1. 切换按钮的高亮状态
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    // 2. 筛选商品并显示
+    document.querySelectorAll('.card').forEach(card => {
+      if (category === 'all' || card.getAttribute('data-category') === category) {
+        card.style.display = 'flex'; // 显示
+      } else {
+        card.style.display = 'none'; // 隐藏
+      }
+    });
+  }
 </script>
-</body> 
+
+</body>
 </html>
